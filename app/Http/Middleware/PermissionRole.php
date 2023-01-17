@@ -26,6 +26,6 @@ class PermissionRole
             return $next($request);
         }
 
-        return redirect(route('dashboard.get'))->with('error', 'Kamu tidak ada akses!');
+        return redirect(route('dashboard.index'))->with('error', 'Kamu tidak ada akses!');
     }
 }

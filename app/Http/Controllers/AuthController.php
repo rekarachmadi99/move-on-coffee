@@ -15,11 +15,10 @@ class AuthController extends Controller
     public function index()
     {
         if ($user = Auth::user()) {
-            if ($user->role == ['Owner', 'Admin']) {
-                return redirect(route('dashboard.get'));
-            } else {
-                return redirect(route('data.barang.get'));
+            if ($user->role == 'Pegawai') {
+                return redirect(route('barang.index'));
             }
+            return redirect(route('dashboard.index'));
         }
         return view('pages.auth.login', [
             'title' => 'Login'
@@ -44,13 +43,11 @@ class AuthController extends Controller
         if (Auth::attempt($kredensial)) {
             $request->session()->regenerate();
             $user = Auth::user();
-            if ($user->role == 'Admin') {
-                return redirect(route('dashboard.get'));
-            } elseif ($user->role == 'Owner') {
-                return redirect(route('dashboard.get'));
-            } elseif ($user->role == 'Pegawai') {
-                return redirect(route('data.barang.get'));
+
+            if ($user->role == 'Pegawai') {
+                return redirect(route('barang.index'));
             }
+            return redirect(route('dashboard.index'));
         }
         return redirect(route('login'))->with('error', 'Email dan password yang anda masukan salah!');
     }
@@ -59,9 +56,9 @@ class AuthController extends Controller
     {
         if ($user = Auth::user()) {
             if ($user->role == ['Owner', 'Admin']) {
-                return redirect(route('dashboard.get'));
+                return redirect(route('dashboard.index'));
             } else {
-                return redirect(route('data.barang.get'));
+                return redirect(route('barang.index'));
             }
         }
         return view('pages.auth.lupa_password', [
@@ -73,9 +70,9 @@ class AuthController extends Controller
     {
         if ($user = Auth::user()) {
             if ($user->role == ['Owner', 'Admin']) {
-                return redirect(route('dashboard.get'));
+                return redirect(route('dashboard.index'));
             } else {
-                return redirect(route('data.barang.get'));
+                return redirect(route('barang.index'));
             }
         }
 
@@ -127,5 +124,14 @@ class AuthController extends Controller
         ResetPassword::where(['email' => $request->email])->delete();
 
         return redirect('/')->with('success', 'Password berhasil diganti!');
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+
+        Auth::logout();
+
+        return redirect(route('login'));
     }
 }
