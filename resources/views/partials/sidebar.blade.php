@@ -28,7 +28,7 @@
     </div>
 
     <!-- Nav Item - Akun -->
-    <li class="nav-item @if ($title == 'Akun Pegawai' || 'Edit Akun Pegawai') {{ 'active' }} @endif">
+    <li class="nav-item @if ($title == 'Akun Pegawai' || $title == 'Edit Akun Pegawai') {{ 'active' }} @endif">
         <a class="nav-link" href="{{ route('akun.pegawai.index') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>Akun Pegawai</span></a>
@@ -37,7 +37,7 @@
 
     <!-- Nav Item - Pegawai -->
     <li class="nav-item @if ($title == 'Data Pegawai') {{ 'active' }} @endif">
-        <a class="nav-link" href="{{ route('akun.pegawai.index') }}">
+        <a class="nav-link" href="{{ route('pegawai.index') }}">
             <i class="fas fa-fw fa-id-card"></i>
             <span>Pegawai</span></a>
     </li>

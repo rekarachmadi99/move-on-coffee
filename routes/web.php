@@ -50,10 +50,11 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Pegawai
         Route::get('/pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');
-        // Route::post('/tambah-pegawai', [PegawaiController::class, 'tambah_pegawai_post'])->name('tambah.pegawai.post');
-        // Route::get('/edit-pegawai/{id}', [PegawaiController::class, 'edit_pegawai'])->name('edit.data.pegawai.get');
-        // Route::put('/update-pegawai', [PegawaiController::class, 'update_pegawai_put'])->name('update.pegawai.put');
-        // Route::delete('/data-pegawai/{id}', [PegawaiController::class, 'data_pegawai_delete'])->name('destroy.pegawai.delete');
+        Route::post('/pegawai', [PegawaiController::class, 'store'])->name('pegawai.store');
+        Route::get('/pegawai/{id}/edit', [PegawaiController::class, 'edit'])->name('pegawai.edit');
+        Route::get('/pegawai/{id}/view', [PegawaiController::class, 'view'])->name('pegawai.view');
+        Route::put('/pegawai', [PegawaiController::class, 'update'])->name('pegawai.update');
+        Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
 
         // // Inventaris - Jenis Barang
         // Route::get('/jenis-barang', [PegawaiController::class, 'jenis-barang_get'])->name('jenis.barang.get');
