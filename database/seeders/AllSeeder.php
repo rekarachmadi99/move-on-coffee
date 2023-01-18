@@ -35,11 +35,11 @@ class AllSeeder extends Seeder
         // $pegawai->save();
 
         // Akun Pegawai
-        $akun_pegawai = new AkunPegawai();
-        $akun_pegawai->nik = '3';
-        $akun_pegawai->email = 'rekarachmadi21@gmail.com';
-        $akun_pegawai->password = bcrypt('reka210499');
-        $akun_pegawai->role = 'Pegawai';
-        $akun_pegawai->save();
+        // $akun_pegawai = new AkunPegawai();
+        // $akun_pegawai->nik = '3';
+        // $akun_pegawai->email = 'rekarachmadi21@gmail.com';
+        // $akun_pegawai->password = bcrypt('noname');
+        // $akun_pegawai->role = 'Pegawai';
+        // $akun_pegawai->save();
     }
 }
