@@ -32,13 +32,6 @@
                                     <p class="text-danger ml-1 mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox small">
-                                    <input type="checkbox" class="custom-control-input" id="remember_me" name="remember_me">
-                                    <label class="custom-control-label" for="remember_me">Remember
-                                        Me</label>
-                                </div>
-                            </div>
                             <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">
                             <hr>
                             <div class="text-center">

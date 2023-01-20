@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AkunPegawaiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PegawaiController;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 use App\Http\Middleware\CekUserLogin;
+use App\Models\Barang;
 use App\Models\Pegawai;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,9 +59,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
 
         // // Inventaris - Jenis Barang
-        // Route::get('/jenis-barang', [PegawaiController::class, 'jenis-barang_get'])->name('jenis.barang.get');
-        // Route::post('/tambah-jenis-barang', [PegawaiController::class, 'tambah_jenis_barang_post'])->name('tambah.pegawai.post');
-        // Route::delete('/delete-jenis-barang/{id}', [PegawaiController::class, 'jenis_barang_delete'])->name('destroy.jenis.delete');
+        Route::get('/kategori', [BarangController::class, 'kategori_index'])->name('kategori.index');
+        Route::post('/kategori', [BarangController::class, 'kategori_store'])->name('kategori.store');
+        Route::delete('/kategori/{id}', [BarangController::class, 'kategori_destroy'])->name('kategori.destroy');
+        Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
+        Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
+        Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
+        Route::put('/barang', [BarangController::class, 'update'])->name('barang.update');
+        Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 
         // // Inventaris - Barang
         // Route::get('/data-barang', [PegawaiController::class, 'data_barang'])->name('data.barang.get');

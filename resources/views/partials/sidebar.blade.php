@@ -50,6 +50,20 @@
         Inventaris
     </div>
 
+    <!-- Nav Item - Pegawai -->
+    <li class="nav-item @if ($title == 'Kategori Barang') {{ 'active' }} @endif">
+        <a class="nav-link" href="{{ route('kategori.index') }}">
+            <i class="fas fa-fw fa-list-alt"></i>
+            <span>Kategori Barang</span></a>
+    </li>
+
+    <!-- Nav Item - Pegawai -->
+    <li class="nav-item @if ($title == 'Data Barang') {{ 'active' }} @endif">
+        <a class="nav-link" href="{{ route('barang.index') }}">
+            <i class="fas fa-fw fa-archive"></i>
+            <span>Barang</span></a>
+    </li>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider">
