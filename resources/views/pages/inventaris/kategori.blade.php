@@ -45,7 +45,7 @@
                                             <td>{{ $kategori->created_at }}</td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
-                                                    <form action="{{ route('kategori.delete', $kategori->id_kategori) }}"
+                                                    <form action="{{ route('kategori.destroy', $kategori->id_kategori) }}"
                                                         method="post">
                                                         @method('delete')
                                                         @csrf

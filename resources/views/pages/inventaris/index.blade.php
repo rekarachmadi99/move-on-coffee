@@ -33,30 +33,42 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('barang.store') }}" method="post">
+                            <form action="{{ route('barang.store') }}" method="post" enctype="multipart/form-data">
+                                @csrf
                                 <div class="form-group">
-                                    <label for="nama">Nama</label>
-                                    <input type="text" class="form-control" name="nama" id="nama"
-                                        value="{{ old('nama') }}">
+                                    <label for="nama">Nama Barang</label>
+                                    <input type="text" class="form-control @error('nama') {{ 'is-invalid' }} @enderror"
+                                        name="nama" id="nama" value="{{ old('nama') }}">
+                                    @error('nama')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="nama">Quantity</label>
-                                            <input type="number" class="form-control" name="nama" id="nama"
-                                                value="{{ old('nama') }}">
+                                            <label for="quantity">Quantity</label>
+                                            <input type="number"
+                                                class="form-control @error('quantity') {{ 'is-invalid' }} @enderror"
+                                                name="quantity" id="quantity" value="{{ old('quantity') }}">
+                                            @error('quantity')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="nama">Harga Satuan</label>
+                                            <label for="harga_satuan">Harga Satuan</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon1">Rp.</span>
                                                 </div>
-                                                <input type="number" class="form-control" name="nama" id="nama"
-                                                    value="{{ old('nama') }}">
+                                                <input type="number"
+                                                    class="form-control @error('harga_satuan') {{ 'is-invalid' }} @enderror"
+                                                    name="harga_satuan" id="harga_satuan" value="{{ old('harga_satuan') }}">
                                             </div>
+                                            @error('harga_satuan')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -64,8 +76,8 @@
                                     <label for="id_kategori">Kategori Barang</label>
                                     <select class="form-control" name="id_kategori" id="id_kategori">
                                         @foreach ($list_kategori as $list_kategori)
-                                            <option @if (old('id_kategori') == $list_kategori->id) {{ 'selected' }} @endif
-                                                value="{{ $list_kategori->id }}">
+                                            <option @if (old('id_kategori') == $list_kategori->id_kategori) {{ 'selected' }} @endif
+                                                value="{{ $list_kategori->id_kategori }}">
                                                 {{ $list_kategori->nama }}</option>
                                         @endforeach
                                     </select>
@@ -73,6 +85,16 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <label for="foto_barang">Foto Barang</label>
+                                    <input type="file"
+                                        class="form-control @error('foto_barang') {{ 'is-invalid' }} @enderror"
+                                        name="foto_barang" id="foto_barang">
+                                    @error('foto_barang')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <input type="submit" class="btn btn-primary btn-block" value="Simpan">
                             </form>
                         </div>
                     </div>
@@ -110,27 +132,34 @@
                             @php
                                 $id = 1;
                             @endphp
-                            {{-- @foreach ($data as $data)
-                                        <tr>
-                                            <td>{{ $id++ }}</td>
-                                            <td>{{ $data->nik }}</td>
-                                            <td>{{ $data->email }}</td>
-                                            <td>{{ $data->role }}</td>
-                                            <td class="d-flex justify-content-center">
-                                                <a href="{{ route('akun.pegawai.edit', $data->nik) }}"
-                                                    class="btn btn-primary mr-2"><i class="fa fa-pencil-square-o"
-                                                        aria-hidden="true"></i></a>
-                                                <form action="{{ route('akun.pegawai.destroy', $data->nik) }}"
-                                                    method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="btn btn-primary"
-                                                        onclick="return confirm('Anda yakin ingin menghapus record ini?')"><i
-                                                            class="fa fa-trash" aria-hidden="true"></i></button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach --}}
+                            @foreach ($barang as $barang)
+                                <tr>
+                                    <td>{{ $id }}</td>
+                                    <td><img src="{{ Storage::url('public/img/') . $barang->foto_barang }}"
+                                            alt="{{ $barang->foto_barang }}" width="100px">
+                                    </td>
+                                    <td>{{ $barang->nama }}</td>
+                                    <td>{{ $barang->quantity }}</td>
+                                    <td>{{ $barang->harga_satuan }}</td>
+                                    <td>{{ $barang->quantity * $barang->harga_satuan }}</td>
+                                    <td>{{ $barang->nama_kategori }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center">
+                                            <a href="{{ route('barang.edit', $barang->id_barang) }}"
+                                                class="btn btn-primary mr-2"><i class="fa fa-pencil-square-o"
+                                                    aria-hidden="true"></i></a>
+                                            <form action="{{ route('barang.destroy', $barang->id_barang) }}"
+                                                method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button class="btn btn-danger"
+                                                    onclick="return confirm('Anda yakin ingin menghapus record ini?')"><i
+                                                        class="fa fa-trash" aria-hidden="true"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
