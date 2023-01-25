@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\AkunPegawai;
+use App\Models\Barang;
+use App\Models\Keuangan;
+use App\Models\Pegawai;
 use App\Models\ResetPassword;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -133,5 +136,60 @@ class AuthController extends Controller
         Auth::logout();
 
         return redirect(route('login'));
+    }
+
+    public function dashboard()
+    {
+        // Grafik Pemasukan, Pemasukan dan Pengeluaran
+
+
+
+        $user = Pegawai::where('nik', Auth::user()->nik)->first();
+        return view('pages.dashboard', [
+            'title' => 'Dashboard',
+            'user' => $user,
+            'totalPegawai' => Pegawai::where('status_pekerjaan', 'Aktif')->count(),
+            'totalBarang' => Barang::count(),
+            'totalPemasukan' => Keuangan::where('jenis_transaksi', 'debit')->sum('nominal'),
+            'totalPengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->sum('nominal'),
+            'januari_pemasukan' => Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '1')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'februari_pemasukan' => Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '2')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'maret_pemasukan' => Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '3')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'april_pemasukan' => Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '4')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'mei_pemasukan' => Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '5')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'juni_pemasukan' => Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '6')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'juli_pemasukan' => Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '7')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'agustus_pemasukan' => Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '8')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'september_pemasukan' => Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '9')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'oktober_pemasukan' => Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '10')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'november_pemasukan' => Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '11')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'desember_pemasukan' => Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '12')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+
+            'januari_pengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '1')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'februari_pengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '2')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'maret_pengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '3')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'april_pengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '4')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'mei_pengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '5')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'juni_pengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '6')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'juli_pengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '7')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'agustus_pengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '8')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'september_pengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '9')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'oktober_pengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '10')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'november_pengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '11')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+            'desember_pengeluaran' => Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '12')->whereYear('tanggal', Carbon::now()->year)->sum('nominal'),
+
+            'januari_pendapatan' => (Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '1')->whereYear('tanggal', Carbon::now()->year)->sum('nominal') - Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '1')->whereYear('tanggal', Carbon::now()->year)->sum('nominal')),
+            'februari_pendapatan' => (Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '2')->whereYear('tanggal', Carbon::now()->year)->sum('nominal') - Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '2')->whereYear('tanggal', Carbon::now()->year)->sum('nominal')),
+            'maret_pendapatan' => (Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '3')->whereYear('tanggal', Carbon::now()->year)->sum('nominal') - Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '3')->whereYear('tanggal', Carbon::now()->year)->sum('nominal')),
+            'april_pendapatan' => (Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '4')->whereYear('tanggal', Carbon::now()->year)->sum('nominal') - Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '4')->whereYear('tanggal', Carbon::now()->year)->sum('nominal')),
+            'mei_pendapatan' => (Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '5')->whereYear('tanggal', Carbon::now()->year)->sum('nominal') - Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '5')->whereYear('tanggal', Carbon::now()->year)->sum('nominal')),
+            'juni_pendapatan' => (Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '6')->whereYear('tanggal', Carbon::now()->year)->sum('nominal') - Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '6')->whereYear('tanggal', Carbon::now()->year)->sum('nominal')),
+            'juli_pendapatan' => (Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '7')->whereYear('tanggal', Carbon::now()->year)->sum('nominal') - Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '7')->whereYear('tanggal', Carbon::now()->year)->sum('nominal')),
+            'agustus_pendapatan' => (Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '8')->whereYear('tanggal', Carbon::now()->year)->sum('nominal') - Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '8')->whereYear('tanggal', Carbon::now()->year)->sum('nominal')),
+            'september_pendapatan' => (Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '9')->whereYear('tanggal', Carbon::now()->year)->sum('nominal') - Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '9')->whereYear('tanggal', Carbon::now()->year)->sum('nominal')),
+            'oktober_pendapatan' => (Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '10')->whereYear('tanggal', Carbon::now()->year)->sum('nominal') - Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '10')->whereYear('tanggal', Carbon::now()->year)->sum('nominal')),
+            'november_pendapatan' => (Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '11')->whereYear('tanggal', Carbon::now()->year)->sum('nominal') - Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '11')->whereYear('tanggal', Carbon::now()->year)->sum('nominal')),
+            'desember_pendapatan' => (Keuangan::where('jenis_transaksi', 'debit')->whereMonth('tanggal', '12')->whereYear('tanggal', Carbon::now()->year)->sum('nominal') - Keuangan::where('jenis_transaksi', 'kredit')->whereMonth('tanggal', '12')->whereYear('tanggal', Carbon::now()->year)->sum('nominal')),
+        ]);
     }
 }

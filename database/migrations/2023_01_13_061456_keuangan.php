@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('keuangan', function (Blueprint $table) {
             $table->id();
+            $table->date('tanggal');
             $table->string('keterangan');
             $table->enum('jenis_transaksi', ['debit', 'kredit']);
             $table->double('nominal');

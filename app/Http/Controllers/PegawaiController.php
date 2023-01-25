@@ -97,6 +97,7 @@ class PegawaiController extends Controller
                 'jabatan' => $request->jabatan,
                 'alamat' => $request->alamat,
                 'tanggal_bekerja' => $request->tanggal_bekerja,
+                'status_pekerjaan' => $request->status_pekerjaan,
                 'foto_pegawai' => $request->file('foto_pegawai')->hashName()
             ];
             $request->file('foto_pegawai')->store('public/img');
@@ -118,7 +119,8 @@ class PegawaiController extends Controller
                 'golongan_darah' => $request->golongan_darah,
                 'jabatan' => $request->jabatan,
                 'alamat' => $request->alamat,
-                'tanggal_bekerja' => $request->tanggal_bekerja
+                'tanggal_bekerja' => $request->tanggal_bekerja,
+                'status_pekerjaan' => $request->status_pekerjaan
             ];
         }
         $update->update($data);

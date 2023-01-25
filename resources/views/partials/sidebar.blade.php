@@ -73,6 +73,20 @@
         Keuangan
     </div>
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#keuangan" aria-expanded="true"
+            aria-controls="akun">
+            <i class="fas fa-fw fa-credit-card"></i>
+            <span>Keuangan</span>
+        </a>
+        <div id="keuangan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('pemasukan.index') }}">Pemasukan</a>
+                <a class="collapse-item" href="{{ route('pengeluaran.index') }}">Pengeluaran</a>
+                <a class="collapse-item" href="{{ route('laporan.keuangan.index') }}">Pengeluaran</a>
+            </div>
+        </div>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

@@ -75,7 +75,8 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Total barang</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalBarang }}
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-id-card fa-2x text-gray-300"></i>
@@ -97,13 +98,13 @@
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
                                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                        {{ 'Rp ' . number_format('2000000', 2, ',', '.') }}
+                                                        {{ 'Rp ' . number_format($totalPemasukan, 2, ',', '.') }}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-folder fa-2x text-gray-300"></i>
+                                            <i class="fas fa-credit-card fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -118,10 +119,12 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Pengeluaran </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                {{ 'Rp ' . number_format($totalPengeluaran, 2, ',', '.') }}
+                                            </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-credit-card fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -220,11 +223,23 @@
                 ],
                 datasets: [{
                     label: 'Pemasukan',
-                    data: [8000000, 8500000, 3, 5, 2, 3],
+                    data: [{{ $januari_pemasukan }}, {{ $februari_pemasukan }}, {{ $maret_pemasukan }},
+                        {{ $april_pemasukan }}, {{ $mei_pemasukan }}, {{ $juni_pemasukan }},
+                        {{ $juli_pemasukan }}, {{ $agustus_pemasukan }}, {{ $september_pemasukan }},
+                        {{ $oktober_pemasukan }}, {{ $november_pemasukan }},
+                        {{ $desember_pemasukan }}
+                    ],
                     borderWidth: 1
                 }, {
                     label: 'Pengeluaran',
-                    data: [8000000, 8500000, 3, 5, 2, 3],
+                    data: [{{ $januari_pengeluaran }}, {{ $februari_pengeluaran }},
+                        {{ $maret_pengeluaran }},
+                        {{ $april_pengeluaran }}, {{ $mei_pengeluaran }}, {{ $juni_pengeluaran }},
+                        {{ $juli_pengeluaran }}, {{ $agustus_pengeluaran }},
+                        {{ $september_pengeluaran }},
+                        {{ $oktober_pengeluaran }}, {{ $november_pengeluaran }},
+                        {{ $desember_pengeluaran }}
+                    ],
                     borderWidth: 1
                 }]
             },
@@ -249,7 +264,14 @@
                 ],
                 datasets: [{
                     label: 'Keuangan',
-                    data: [8000000, 8500000, 3, 5, 2, 3],
+                    data: [{{ $januari_pendapatan }}, {{ $februari_pendapatan }},
+                        {{ $maret_pendapatan }},
+                        {{ $april_pendapatan }}, {{ $mei_pendapatan }}, {{ $juni_pendapatan }},
+                        {{ $juli_pendapatan }}, {{ $agustus_pendapatan }},
+                        {{ $september_pendapatan }},
+                        {{ $oktober_pendapatan }}, {{ $november_pendapatan }},
+                        {{ $desember_pendapatan }}
+                    ],
                     borderWidth: 1
                 }]
             },

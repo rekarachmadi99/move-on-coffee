@@ -69,12 +69,8 @@
                     </div>
                     <div class="form-group">
                         <label for="foto_barang">Foto Barang</label>
-                        <input type="file" class="form-control @error('foto_barang') {{ 'is-invalid' }} @enderror"
-                            name="foto_barang" id="foto_barang">
+                        <input type="file" class="form-control" name="foto_barang" id="foto_barang">
                         <p>*Foto biarkan jika tidak akan di update</p>
-                        @error('foto_barang')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
 
                         <img class="img-thumbnail mt-2" width="100px"
                             src="{{ Storage::url('public/img/') . $barang->foto_barang }}"

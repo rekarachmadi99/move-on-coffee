@@ -34,14 +34,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout.get');
 Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['middleware' => ['permissionRole:Admin']], function () {
-        Route::get('/dashboard', function () {
-            $user = Pegawai::where('nik', Auth::user()->nik)->first();
-            return view('pages.dashboard', [
-                'title' => 'Dashboard',
-                'user' => $user,
-                'totalPegawai' => Pegawai::count()
-            ]);
-        })->name('dashboard.index');
+        Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard.index');
 
         // Akun Pegawai Controller
         Route::get('/akun-pegawai', [AkunPegawaiController::class, 'index'])->name('akun.pegawai.index');
@@ -68,12 +61,22 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/barang', [BarangController::class, 'update'])->name('barang.update');
         Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 
-        // // Inventaris - Barang
-        // Route::get('/data-barang', [PegawaiController::class, 'data_barang'])->name('data.barang.get');
-        // Route::post('/tambah-data-barang-post', [PegawaiController::class, 'tambah_barang_post'])->name('tambah.pegawai.post');
-        // Route::get('/edit-data-barang/{id}', [PegawaiController::class, 'edit_barang'])->name('edit.data.pegawai.get');
-        // Route::put('/update-pegawai', [PegawaiController::class, 'update_pegawai_put'])->name('update.pegawai.put');
-        // Route::delete('/data-pegawai/{id}', [PegawaiController::class, 'data_pegawai_delete'])->name('destroy.pegawai.delete');
+        // Keuangan - Pemasukan
+        Route::get('/pemasukan', [PegawaiController::class, 'index'])->name('pemasukan.index');
+        Route::post('/pemasukan', [PegawaiController::class, 'store'])->name('pemasukan.store');
+        Route::get('/pemasukan/{id}/edit', [PegawaiController::class, 'edit'])->name('pemasukan.edit');
+        Route::put('/pemasukan', [PegawaiController::class, 'update'])->name('pemasukan.update');
+        Route::delete('/pemasukan/{id}', [PegawaiController::class, 'destroy'])->name('pemasukan.destroy');
+
+        // Keuangan - Pengeluaran
+        Route::get('/pengeluaran', [PegawaiController::class, 'index'])->name('pengeluaran.index');
+        Route::post('/pengeluaran', [PegawaiController::class, 'store'])->name('pengeluaran.store');
+        Route::get('/pengeluaran/{id}/edit', [PegawaiController::class, 'edit'])->name('pengeluaran.edit');
+        Route::put('/pengeluaran', [PegawaiController::class, 'update'])->name('pengeluaran.update');
+        Route::delete('/pengeluaran/{id}', [PegawaiController::class, 'destroy'])->name('pengeluaran.destroy');
+
+        // Keuangan - Laporan Keuangan
+        Route::get('/laporan-keuangan', [PegawaiController::class, 'index'])->name('laporan.keuangan.index');
     });
 
     Route::group(['middleware' => ['permissionRole:Pegawai']], function () {

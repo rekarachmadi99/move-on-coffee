@@ -103,6 +103,42 @@ class BarangController extends Controller
         ]);
     }
 
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'nama' => 'required',
+            'quantity' => 'required',
+            'harga_satuan' => 'required',
+        ], [
+            'nama.required' => 'Nama barang tidak boleh kosong!',
+            'quantity.required' => 'Quantity tidak boleh kosong!',
+            'harga_satuan.required' => 'Harga satuan tidak boleh kosong!'
+        ]);
+
+        $data_barang = Barang::where('id_barang', $request->id_barang)->first();
+        $update = Barang::where('id_barang', $request->id_barang);
+        if ($request->hasFile('foto_barang')) {
+            Storage::delete('public/img/' . $data_barang->foto_barang);
+            $request->file('foto_barang')->store('public/img');
+            $update->update([
+                'nama' => $request->nama,
+                'quantity' => $request->quantity,
+                'harga_satuan' => $request->harga_satuan,
+                'id_kategori' => $request->id_kategori,
+                'foto_barang' => $request->file('foto_barang')->hashName()
+            ]);
+            return redirect(route('barang.index'))->with('success', 'Data barang berhasil diupdate!');
+        }
+        $update->update([
+            'nama' => $request->nama,
+            'quantity' => $request->quantity,
+            'harga_satuan' => $request->harga_satuan,
+            'id_kategori' => $request->id_kategori,
+        ]);
+
+        return redirect(route('barang.index'))->with('success', 'Data barang berhasil diupdate!');
+    }
+
     public function destroy($id)
     {
         $destroy = Barang::where('id_barang', $id);
