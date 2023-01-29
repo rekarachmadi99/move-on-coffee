@@ -4,6 +4,7 @@ use App\Http\Controllers\AkunPegawaiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PemasukanController;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 use App\Http\Middleware\CekUserLogin;
@@ -62,8 +63,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 
         // Keuangan - Pemasukan
-        Route::get('/pemasukan', [PegawaiController::class, 'index'])->name('pemasukan.index');
-        Route::post('/pemasukan', [PegawaiController::class, 'store'])->name('pemasukan.store');
+        Route::get('/pemasukan', [PemasukanController::class, 'index'])->name('pemasukan.index');
+        Route::post('/pemasukan', [PemasukanController::class, 'store'])->name('pemasukan.store');
         Route::get('/pemasukan/{id}/edit', [PegawaiController::class, 'edit'])->name('pemasukan.edit');
         Route::put('/pemasukan', [PegawaiController::class, 'update'])->name('pemasukan.update');
         Route::delete('/pemasukan/{id}', [PegawaiController::class, 'destroy'])->name('pemasukan.destroy');
